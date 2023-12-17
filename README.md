@@ -40,7 +40,7 @@ now we will disscuss the functions in the JDB class
 - ``` writeData(data : String) ```-
   * this function writes the ``` data ``` into the JDBF (Json DataBase Files) , this WILL delete the rest of the contents in the file.
 
-- ``` setData(key : String, value : String | Int)```-
+- ``` setData(key : String, value : String | Int) ```-
   * this is basically writeData, but it dosnt delete the existing contents and can only write new data once. It can also change the value of any key you put as the first param any time.
 
 - ``` getData(key : String) ```-
