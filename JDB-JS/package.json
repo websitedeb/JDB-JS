@@ -1,0 +1,39 @@
+{
+  "name": "@web_dev_guy/jdb-js",
+  "version": "1.0.15",
+  "description": "NoSql Json DB",
+  "main": "./JDB/JDB.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "JDB-JS",
+    "JDB.JS",
+    "JDBJS",
+    "jdb.js",
+    "jdb-js",
+    "jdbjs",
+    "JDBjs",
+    "JDB.js",
+    "JDB-js",
+    "jsondb",
+    "JSONdb",
+    "JSONDB",
+    "jsonDB",
+    "JsonDB",
+    "Jsondb",
+    "jdb",
+    "Jdb",
+    "JDB",
+    "jDB",
+    "db",
+    "Db",
+    "DB",
+    "dB"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}
