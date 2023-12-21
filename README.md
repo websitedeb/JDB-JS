@@ -15,17 +15,21 @@ JDB.JS is meant to be a NoSQL JSON datbase that people could use
 
 ## Linking to your Project Using NPM ##
 - ### Import ###
-  * ``` import { JDB } from "@web_dev_guy/jdb-js"; ```
+  * ```node
+    import { JDB } from "@web_dev_guy/jdb-js";
+    ```
 
 - ### Require ###
-  * ``` const { JDB } = require("@web_dev_guy/jdb-js"); ```
+  * ```node
+    const { JDB } = require("@web_dev_guy/jdb-js"); 
+    ```
 
 ## JDB Class - ##
 
 This is the class which contains all the functions that you can use
 the first parameter is the name of your file you will be preforming CRUD on
 
-```
+```node
 const { JDB } = require("./JDB/JDB.js") or require("@web_dev_guy/jdb-js");
 
 const jdb = new JDB("jsonfile"); 
@@ -58,11 +62,27 @@ now we will disscuss the functions in the JDB class
 - ``` removeAllData(brackets : Boolean) ```-
   * removes all the code from the file, if brackets is true, then the brackets will also be delete, else the brackets will.
 
-- ``` hasData(value) ```-
+- ``` hasData(value : String | Int) ```-
   * returns the name of the key that contains the value that is equal to ``` value ```.
 
-- ``` setKey(name, newname) ```-
+- ``` setKey(name : String, newname : String) ```-
   * changes the key's name from ``` name ``` to ``` newname ```.
+
+- ``` replaceUrl(new_url : String) ```-
+  * changes the url of the JDB class to the value of ``` new_url ```.
+
+- ``` terminate() ```-
+  * terminates the JDB code
+
+- ``` onReadData(callback(txt : String) : Function) ```-
+  * after reading the JDBF and returning the json it will run the ``` callback ``` function that has the param of ``` txt ``` which contains the content of the JDB.
+
+- ``` onWriteData(words : String | Int, callback: Function) ```-
+  * after writing the data it runs the ``` callback ``` function.
+
+- ``` onAddData(text : String | Int, callback : Function) ```-
+  * its ``` onWriteData ``` but it dosnt delete the existing contents of the text.
+
 ## JDB FileSystem - ##
 
 there are also functions that you can use which are not inside of the JDB class, which are super useful.
@@ -84,7 +104,7 @@ there are also functions that you can use which are not inside of the JDB class,
 
 ### Syntax ###
 
-```
+```node
 const {CreateJDBF, DeestroyJDBF, IntegrateJDBF} = require("./JDB/JDB.js") or require("@web_dev_guy/jdb-js");
 
 CreateJDBF("example"); // creates new JDBF called example
