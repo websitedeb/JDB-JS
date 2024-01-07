@@ -84,13 +84,21 @@ class JDB {
     this.fs.writeFileSync(this.cdn_url, JSON.stringify(parsedData));
   }
 
-  hasData(value) {
+  hasData(value, returnBool) {
     var jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
     var parsedData = JSON.parse(jsonData);
     var keys = Object.keys(parsedData);
     var values = Object.values(parsedData);
     var index = values.indexOf(value);
-    return keys[index];
+    if (returnBool == true) {
+      if (keys[index]) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return keys[index];
+    }
   }
 
   onWriteData(data, callback) {
@@ -129,6 +137,128 @@ class JDB {
     added = true;
     if (added) {
       callback();
+    }
+  }
+
+  onRemoveData(name, callback) {
+    var done = false;
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    delete parsedData[name];
+    this.fs.writeFileSync(this.cdn_url, JSON.stringify(parsedData));
+    done = true;
+    if (done) {
+      callback();
+    }
+  }
+
+  limitData(by) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    const keys = Object.keys(parsedData);
+    const values = Object.values(parsedData);
+    const result = keys.slice(0, by).map((key, index) => {
+      return {
+        key: key,
+        value: values[index],
+      };
+    });
+    return result;
+  }
+
+  keyExists(key) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    return Object.keys(parsedData).includes(key);
+  }
+
+  valueExists(value) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    const values = Object.values(parsedData);
+    return values.includes(value);
+  }
+
+  countData() {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    return Object.keys(parsedData).length;
+  }
+
+  whereKey(key) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    const keys = Object.keys(parsedData);
+    const index = keys.indexOf(key);
+    return index;
+  }
+
+  whereValue(value) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    const values = Object.values(parsedData);
+    const index = values.indexOf(value);
+    return index;
+  }
+
+  sortData(by, type) {
+    const jsonData = this.fs.readFileSync(this.cdn_url, "utf-8");
+    const parsedData = JSON.parse(jsonData);
+    switch (by) {
+      case "key":
+        switch (type) {
+          case "asc":
+            const keys = Object.keys(parsedData).sort();
+            return keys;
+          case "desc":
+            const key = Object.keys(parsedData).sort().reverse();
+            return key;
+          case "num":
+            const key2 = Object.keys(parsedData).sort((a, b) => {
+              return parsedData[a] - parsedData[b];
+            });
+            return key2;
+          case "letters":
+            const key3 = Object.keys(parsedData).sort((a, b) => {
+              return a.localeCompare(b);
+            });
+            return key3;
+          case "words":
+            const key4 = Object.keys(parsedData).sort((a, b) => {
+              return a.split(" ").length - b.split(" ").length;
+            });
+            return key4;
+          case "normal":
+            const key5 = Object.keys(parsedData).sort();
+            return key5;
+        }
+      case "value":
+        switch (type) {
+          case "asc":
+            const values = Object.values(parsedData).sort();
+            return values;
+          case "desc":
+            const value = Object.values(parsedData).sort().reverse();
+            return value;
+          case "num":
+            const value2 = Object.values(parsedData).sort((a, b) => {
+              return parsedData[a] - parsed[b];
+            });
+            return value2;
+          case "letters":
+            const key3 = Object.keys(parsedData).sort((a, b) => {
+              return a.localeCompare(b);
+            });
+            return key3;
+          case "words":
+            const key4 = Object.keys(parsedData).sort((a, b) => {
+              return a.split(" ").length - b.split(" ").length;
+            });
+            return key4;
+          case "normal":
+            const key5 = Object.keys(parsedData).sort();
+            return key5;
+        }
     }
   }
 }
